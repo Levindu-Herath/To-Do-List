@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 
-class ToDoTile extends StatefulWidget {
-  const ToDoTile({super.key});
+class ToDoTile extends StatelessWidget {
+  final String taskName;
+  final bool taskCompleted;
+  Function(bool?)? onChanged;
 
-  @override
-  State<ToDoTile> createState() => _ToDoTileState();
-}
+  ToDoTile(
+      {super.key,
+      required this.taskName,
+      required this.taskCompleted,
+      required this.onChanged});
 
-class _ToDoTileState extends State<ToDoTile> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -15,7 +18,15 @@ class _ToDoTileState extends State<ToDoTile> {
       child: Container(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
-          child: Text('Make Tutorial'),
+          child: Row(
+            children: [
+              // checkbox
+              Checkbox(value: taskCompleted, onChanged: onChanged),
+
+              // task name
+              Text(taskName),
+            ],
+          ),
         ),
         decoration: BoxDecoration(
             color: Colors.yellow, borderRadius: BorderRadius.circular(12)),
